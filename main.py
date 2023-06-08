@@ -11,6 +11,8 @@ weather_api_key = os.getenv("OWM_API_KEY")
 account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 client = Client(account_sid, auth_token)
+twilio_number = os.getenv("TWILIO_NUM")
+to_number = os.getenv("TO_NUMBER")
 
 test_lat = 21.481291
 test_long = 109.120163
@@ -18,8 +20,8 @@ home_lat = 37.762098
 home_long = -122.443438
 
 parameters = {
-    "lat": home_lat,
-    "lon": home_long,
+    "lat": test_lat,
+    "lon": test_long,
     "appid": weather_api_key,
 }
 
@@ -36,8 +38,8 @@ for three_hour in weather_forecast[0:4]:
         # client = Client(account_sid, auth_token, http_client=proxy_client)
         message = client.messages.create(
             body="It's going to rain today. Remember to bring an ☔",
-            from_='+18883921439',
-            to='+14154099223'
+            from_=twilio_number,
+            to=to_number
         )
         break
 print(message.status)
